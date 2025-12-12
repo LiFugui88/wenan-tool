@@ -141,7 +141,7 @@ export const useAppStore = create<AppState>()(
 
       apiKey: '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',
       setApiKey: (key) => set({ apiKey: key }),
-      defaultModel: 'google/gemini-2.5-pro-preview',
+      defaultModel: 'google/gemini-2.5-pro',
       setDefaultModel: (model) => set({ defaultModel: model }),
 
       isExecuting: false,

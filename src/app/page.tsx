@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { PromptButton } from '@/components/PromptConfig';
 import { IndustryCard } from '@/components/IndustryCard';
+import { ApiConfigButton } from '@/components/ApiConfig';
 import { useAppStore } from '@/store';
 import { callOpenRouter, parseJsonFromResponse } from '@/lib/api';
 import { IndustryType, ClassificationResult, AuditResult, QualityResult } from '@/types';
@@ -149,6 +150,7 @@ export default function Home() {
           <PromptButton configKey="classification" label="文案分类系统提示词" />
           <PromptButton configKey="rewrite" label="文案仿写系统提示词" />
           <PromptButton configKey="quality" label="文案仿写质量判断系统提示词" />
+          <ApiConfigButton />
         </div>
 
         {/* 主工作区 */}
