@@ -29,7 +29,7 @@ export async function callOpenRouter({
       'Authorization': `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
       'HTTP-Referer': typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000',
-      'X-Title': '文案仿写测试工具'
+      'X-Title': 'Wenan Tool'
     },
     body: JSON.stringify({
       model: prompt.model || model,
