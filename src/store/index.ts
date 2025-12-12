@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { AppState, IndustryType, PromptConfig } from '@/types';
+import { AppState, IndustryType, LogEntry } from '@/types';
 
 const defaultPromptConfigs = {
   audit: {
@@ -112,7 +112,7 @@ const defaultIndustries = [
 
 export const useAppStore = create<AppState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       baseContent: '',
       setBaseContent: (content) => set({ baseContent: content }),
 
@@ -139,7 +139,7 @@ export const useAppStore = create<AppState>()(
           )
         })),
 
-      apiKey: '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',
+      apiKey: '',
       setApiKey: (key) => set({ apiKey: key }),
       defaultModel: 'google/gemini-2.5-pro',
       setDefaultModel: (model) => set({ defaultModel: model }),
@@ -149,6 +149,28 @@ export const useAppStore = create<AppState>()(
 
       overallQualityPass: null,
       setOverallQualityPass: (pass) => set({ overallQualityPass: pass }),
+
+      // 执行日志
+      logs: [],
+      addLog: (log) => {
+        const id = `log-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const newLog: LogEntry = {
+          ...log,
+          id,
+          timestamp: new Date(),
+        };
+        set((state) => ({
+          logs: [...state.logs, newLog]
+        }));
+        return id;
+      },
+      updateLog: (id, updates) =>
+        set((state) => ({
+          logs: state.logs.map((log) =>
+            log.id === id ? { ...log, ...updates } : log
+          )
+        })),
+      clearLogs: () => set({ logs: [] }),
     }),
     {
       name: 'wenan-tool-storage',

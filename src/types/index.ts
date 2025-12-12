@@ -48,6 +48,18 @@ export interface QualityResult {
   reason: string;
 }
 
+// 执行日志条目
+export interface LogEntry {
+  id: string;
+  timestamp: Date;
+  type: 'audit' | 'classification' | 'rewrite' | 'quality';
+  industry?: string;
+  status: 'pending' | 'running' | 'success' | 'error';
+  input?: string;
+  output?: string;
+  error?: string;
+}
+
 // 应用状态
 export interface AppState {
   // 基底文案
@@ -88,4 +100,10 @@ export interface AppState {
   // 整体仿写质量
   overallQualityPass: boolean | null;
   setOverallQualityPass: (pass: boolean | null) => void;
+
+  // 执行日志
+  logs: LogEntry[];
+  addLog: (log: Omit<LogEntry, 'id' | 'timestamp'>) => string;
+  updateLog: (id: string, updates: Partial<LogEntry>) => void;
+  clearLogs: () => void;
 }
